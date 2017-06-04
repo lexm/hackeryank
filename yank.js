@@ -1,3 +1,8 @@
+function downloadCode(code, fname) {
+  var link = '<a href="data:text/html,' + code + '" download="' + fname + '">'
+  $(".grey-header div:nth-child(5)").append(link);
+}
+
 var outCode = '';
 $(".CodeMirror-code div pre > span").each(function() {
   outCode += this.textContent + '\n';
