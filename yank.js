@@ -9,7 +9,7 @@ $(".bcrumb span").each(function() {
 });
 var urlArray = window.location.pathname.split('/');
 if(urlArray[3] === 'submissions') {
-  var lang = $(".pull-left .msT").text().split(' ')[1];
+  var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
   var spot = $(".submissions-details .pull-left p");
 
 } else {
@@ -19,6 +19,8 @@ if(urlArray[3] === 'submissions') {
 var ext = '';
 if(lang === 'Python' || lang === 'Pypy') {
   ext = '.py';
+} else if(lang === 'JavaScript') {
+  ext = '.js';
 }
 var filename = urlArray[2] + ext;
 var spotText = spot.text();
