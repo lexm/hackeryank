@@ -2,6 +2,7 @@ var SolutionData = function(pathArray, filename) {
   pathArray.shift();
   this.progName = pathArray.pop();
   this.breadcrumb = pathArray.join('/');
+  this.message = 'Solution to ' + pathArray.join(' > ') + ' > ' + this.progName;
   this.filename = filename;
   this.outCode = [];
   this.addCode = function(text) {
