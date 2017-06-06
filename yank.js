@@ -1,7 +1,9 @@
 var SolutionData = function(pathArray, filename) {
   pathArray.shift();
   this.progName = pathArray.pop();
-  this.breadcrumb = pathArray.join('/');
+  this.breadcrumb = pathArray.map(function(cur) {
+    return cur.split(' ').join('_');
+  }).join('/');
   this.message = 'Solution to ' + pathArray.join(' > ') + ' > ' + this.progName;
   this.filename = filename;
   this.outCode = [];
@@ -53,6 +55,10 @@ if(lang === 'Python' || lang === 'Pypy') {
   ext = '.py';
 } else if(lang === 'JavaScript') {
   ext = '.js';
+} else if(lang === 'BASH') {
+  ext = '.sh';
+} else if(lang === 'MySQL') {
+  ext = '.sql';
 }
 var filename = urlArray[2] + ext;
 var scriptName = urlArray[2] + '_solution.sh';
