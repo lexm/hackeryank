@@ -53,6 +53,8 @@ if(lang === 'Python' || lang === 'Pypy') {
   ext = '.py';
 } else if(lang === 'JavaScript') {
   ext = '.js';
+} else if(lang === 'BASH') {
+  ext = '.sh';
 }
 var filename = urlArray[2] + ext;
 var scriptName = urlArray[2] + '_solution.sh';
