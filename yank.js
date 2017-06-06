@@ -38,7 +38,7 @@ SolutionData.prototype.genScript = function() {
 
 var pathArray = [];
 $(".bcrumb span").each(function() {
-  pathArray.push(this.textContent);
+  pathArray.push(this.textContent.split(' ').join('_'));
 });
 var urlArray = window.location.pathname.split('/');
 if(urlArray[3] === 'submissions') {
