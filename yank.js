@@ -2,6 +2,7 @@ var SolutionData = function(pathArray, filename) {
   pathArray.shift();
   this.progName = pathArray.pop();
   this.breadcrumb = pathArray.join('/');
+  this.message = 'Solution to ' + pathArray.join(' > ') + ' > ' + this.progName;
   this.filename = filename;
   this.outCode = [];
   this.addCode = function(text) {
@@ -29,6 +30,9 @@ SolutionData.prototype.genScript = function() {
   });
   script += ' fi\n';
   script += 'fi\n';
+  script += 'cd $HACKERRANK_REPO/$BCRUMB/\n';
+  script += 'git add $CODE_FILENAME\n';
+  script += 'git commit -m "' + this.message + '"\n'
   return script;
 }
 
