@@ -1,3 +1,11 @@
+var SolutionData = function(pathArray, filename) {
+  this.progName = pathArray.pop();
+  this.filename = filename;
+  this.outCode = '';
+  this.addCode = function(text) {
+    this.outCode += text + '\n';
+  }
+}
 
 var outCode = '';
 $(".CodeMirror-code div pre > span").each(function() {
