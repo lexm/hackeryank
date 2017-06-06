@@ -1,7 +1,9 @@
 var SolutionData = function(pathArray, filename) {
   pathArray.shift();
   this.progName = pathArray.pop();
-  this.breadcrumb = pathArray.join('/');
+  this.breadcrumb = pathArray.map(function(cur) {
+    return cur.split(' ').join('_');
+  }).join('/');
   this.message = 'Solution to ' + pathArray.join(' > ') + ' > ' + this.progName;
   this.filename = filename;
   this.outCode = [];
@@ -38,7 +40,7 @@ SolutionData.prototype.genScript = function() {
 
 var pathArray = [];
 $(".bcrumb span").each(function() {
-  pathArray.push(this.textContent.split(' ').join('_'));
+  pathArray.push(this.textContent);
 });
 var urlArray = window.location.pathname.split('/');
 if(urlArray[3] === 'submissions') {
