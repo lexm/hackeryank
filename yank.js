@@ -57,6 +57,8 @@ if(lang === 'Python' || lang === 'Pypy') {
   ext = '.js';
 } else if(lang === 'BASH') {
   ext = '.sh';
+} else if(lang === 'MySQL') {
+  ext = '.sql';
 }
 var filename = urlArray[2] + ext;
 var scriptName = urlArray[2] + '_solution.sh';
