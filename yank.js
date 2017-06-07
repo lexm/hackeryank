@@ -1,4 +1,4 @@
-var SolutionData = function(pathArray, filename) {
+var Solution = function(pathArray, filename) {
   pathArray.shift();
   this.progName = pathArray.pop();
   this.breadcrumb = pathArray.map(function(cur) {
@@ -12,7 +12,7 @@ var SolutionData = function(pathArray, filename) {
   }
 }
 
-SolutionData.prototype.genScript = function() {
+Solution.prototype.genScript = function() {
   script = '#!/bin/bash\n';
   script += 'HACKERRANK_REPO=~/Dev/hackerrank/hackerrank-code\n';
   script += 'BCRUMB=' + this.breadcrumb + '\n';
@@ -38,37 +38,49 @@ SolutionData.prototype.genScript = function() {
   return script;
 }
 
-var pathArray = [];
-$(".bcrumb span").each(function() {
-  pathArray.push(this.textContent);
-});
-var urlArray = window.location.pathname.split('/');
-if(urlArray[3] === 'submissions') {
-  var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
-  var spot = $(".submissions-details .pull-left p");
-} else {
-  var lang = $(".select2-container span").text().split(' ')[0];
-  var spot = $(".grey-header div:nth-child(5)");
+var scrapePath = function() {
+  var pathArray = [];
+  $(".bcrumb span").each(function() {
+    pathArray.push(this.textContent);
+  });
+  return pathArray;
 }
-var ext = '';
-if(lang === 'Python' || lang === 'Pypy') {
-  ext = '.py';
-} else if(lang === 'JavaScript') {
-  ext = '.js';
-} else if(lang === 'BASH') {
-  ext = '.sh';
-} else if(lang === 'MySQL') {
-  ext = '.sql';
-}
-var filename = urlArray[2] + ext;
-var scriptName = urlArray[2] + '_solution.sh';
-var solution = new SolutionData(pathArray, filename);
-$(".CodeMirror-code div pre > span").each(function() {
-  solution.addCode(this.textContent);
-});
 
-var spotText = spot.text();
-spot.html("<a>" + spotText + "</a>");
-tag = spot.find("a");
-tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(solution.genScript()));
-tag.attr("download", scriptName);
+var genFilename = function(is_bash) {
+  var urlArray = window.location.pathname.split('/');
+  var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
+  var ext = '';
+  if(lang === 'Python' || lang === 'Pypy') {
+    ext = '.py';
+  } else if(lang === 'JavaScript') {
+    ext = '.js';
+  } else if(lang === 'BASH') {
+    ext = '.sh';
+  } else if(lang === 'MySQL') {
+    ext = '.sql';
+  }
+  if(is_bash) {
+    return urlArray[2] + '_solution.sh'
+  } else {
+    return urlArray[2] + ext;
+  }
+}
+
+var genSolution = function(filename) {
+  var solution = new Solution(scrapePath(), genFilename());
+  $(".CodeMirror-code div pre > span").each(function() {
+    solution.addCode(this.textContent);
+  });
+  return solution;
+}
+
+var addLinkToPage = function() {
+  var spot = $(".submissions-details .pull-left p");
+  var spotText = spot.text();
+  spot.html("<a>" + spotText + "</a>");
+  var tag = spot.find("a");
+  tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(genSolution().genScript()));
+  tag.attr("download", genFilename(true));
+}
+
+addLinkToPage();
