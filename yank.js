@@ -1,4 +1,4 @@
-var SolutionData = function(pathArray, filename) {
+var Solution = function(pathArray, filename) {
   pathArray.shift();
   this.progName = pathArray.pop();
   this.breadcrumb = pathArray.map(function(cur) {
@@ -12,7 +12,7 @@ var SolutionData = function(pathArray, filename) {
   }
 }
 
-SolutionData.prototype.genScript = function() {
+Solution.prototype.genScript = function() {
   script = '#!/bin/bash\n';
   script += 'HACKERRANK_REPO=~/Dev/hackerrank/hackerrank-code\n';
   script += 'BCRUMB=' + this.breadcrumb + '\n';
@@ -67,16 +67,20 @@ var genFilename = function(is_bash) {
 }
 
 var genSolution = function(filename) {
-  var solution = new SolutionData(scrapePath(), genFilename());
+  var solution = new Solution(scrapePath(), genFilename());
   $(".CodeMirror-code div pre > span").each(function() {
     solution.addCode(this.textContent);
   });
   return solution;
 }
 
-var spot = $(".submissions-details .pull-left p");
-var spotText = spot.text();
-spot.html("<a>" + spotText + "</a>");
-tag = spot.find("a");
-tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(genSolution().genScript()));
-tag.attr("download", genFilename(true));
+var addLinkToPage = function() {
+  var spot = $(".submissions-details .pull-left p");
+  var spotText = spot.text();
+  spot.html("<a>" + spotText + "</a>");
+  var tag = spot.find("a");
+  tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(genSolution().genScript()));
+  tag.attr("download", genFilename(true));
+}
+
+addLinkToPage();
