@@ -46,7 +46,7 @@ var scrapePath = function() {
   return pathArray;
 }
 
-var genFilename = function() {
+var genFilename = function(is_bash) {
   var urlArray = window.location.pathname.split('/');
   var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
   var ext = '';
@@ -59,18 +59,15 @@ var genFilename = function() {
   } else if(lang === 'MySQL') {
     ext = '.sql';
   }
-  return urlArray[2] + ext;
+  if(is_bash) {
+    return urlArray[2] + '_solution.sh'
+  } else {
+    return urlArray[2] + ext;
+  }
 }
-// if(urlArray[3] === 'submissions') {
-// }
-// } else {
-//   var lang = $(".select2-container span").text().split(' ')[0];
-//   var spot = $(".grey-header div:nth-child(5)");
-// }
-// var scriptName = urlArray[2] + '_solution.sh';
-var filename = genFilename();
+
 var genSolution = function(filename) {
-  var solution = new SolutionData(scrapePath(), filename);
+  var solution = new SolutionData(scrapePath(), genFilename());
   $(".CodeMirror-code div pre > span").each(function() {
     solution.addCode(this.textContent);
   });
@@ -82,4 +79,4 @@ var spotText = spot.text();
 spot.html("<a>" + spotText + "</a>");
 tag = spot.find("a");
 tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(genSolution().genScript()));
-tag.attr("download", filename + '_solution.sh');
+tag.attr("download", genFilename(true));
