@@ -2,6 +2,7 @@
 // @name                HackerYank
 // @namespace           http://www.lexmyers.com/
 // @description         Saves one's HackerRank solutions for adding to a repo
+// @include             https://www.hackerrank.com/challenges/*
 // ==/UserScript==
 
 var Solution = function(pathArray, filename) {
