@@ -1,5 +1,7 @@
 // ==UserScript==
-//
+// @name                HackerYank
+// @namespace           http://www.lexmyers.com/
+// @description         Saves one's HackerRank solutions for adding to a repo
 // ==/UserScript==
 
 var Solution = function(pathArray, filename) {
