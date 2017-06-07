@@ -38,18 +38,22 @@ SolutionData.prototype.genScript = function() {
   return script;
 }
 
-var pathArray = [];
-$(".bcrumb span").each(function() {
-  pathArray.push(this.textContent);
-});
-var urlArray = window.location.pathname.split('/');
-if(urlArray[3] === 'submissions') {
-  var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
-  var spot = $(".submissions-details .pull-left p");
-} else {
-  var lang = $(".select2-container span").text().split(' ')[0];
-  var spot = $(".grey-header div:nth-child(5)");
+var scrapePath = function() {
+  var pathArray = [];
+  $(".bcrumb span").each(function() {
+    pathArray.push(this.textContent);
+  });
+  return pathArray;
 }
+
+var urlArray = window.location.pathname.split('/');
+var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
+// if(urlArray[3] === 'submissions') {
+// }
+// } else {
+//   var lang = $(".select2-container span").text().split(' ')[0];
+//   var spot = $(".grey-header div:nth-child(5)");
+// }
 var ext = '';
 if(lang === 'Python' || lang === 'Pypy') {
   ext = '.py';
@@ -62,11 +66,12 @@ if(lang === 'Python' || lang === 'Pypy') {
 }
 var filename = urlArray[2] + ext;
 var scriptName = urlArray[2] + '_solution.sh';
-var solution = new SolutionData(pathArray, filename);
+var solution = new SolutionData(scrapePath(), filename);
 $(".CodeMirror-code div pre > span").each(function() {
   solution.addCode(this.textContent);
 });
 
+var spot = $(".submissions-details .pull-left p");
 var spotText = spot.text();
 spot.html("<a>" + spotText + "</a>");
 tag = spot.find("a");
