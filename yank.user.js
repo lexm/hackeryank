@@ -25,7 +25,7 @@
     };
 
     Solution.prototype.genScript = function() {
-      script = '#!/bin/bash\n';
+      var script = '#!/bin/bash\n';
       script += 'HACKERRANK_REPO=~/Dev/hackerrank/hackerrank-code\n';
       script += 'BCRUMB=' + this.breadcrumb + '\n';
       script += 'CODE_FILENAME=' + this.filename + '\n';
