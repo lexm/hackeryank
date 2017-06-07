@@ -1,3 +1,7 @@
+// ==UserScript==
+//
+// ==/UserScript==
+
 var Solution = function(pathArray, filename) {
   pathArray.shift();
   this.progName = pathArray.pop();
