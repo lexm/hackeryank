@@ -46,34 +46,40 @@ var scrapePath = function() {
   return pathArray;
 }
 
-var urlArray = window.location.pathname.split('/');
-var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
+var genFilename = function() {
+  var urlArray = window.location.pathname.split('/');
+  var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
+  var ext = '';
+  if(lang === 'Python' || lang === 'Pypy') {
+    ext = '.py';
+  } else if(lang === 'JavaScript') {
+    ext = '.js';
+  } else if(lang === 'BASH') {
+    ext = '.sh';
+  } else if(lang === 'MySQL') {
+    ext = '.sql';
+  }
+  return urlArray[2] + ext;
+}
 // if(urlArray[3] === 'submissions') {
 // }
 // } else {
 //   var lang = $(".select2-container span").text().split(' ')[0];
 //   var spot = $(".grey-header div:nth-child(5)");
 // }
-var ext = '';
-if(lang === 'Python' || lang === 'Pypy') {
-  ext = '.py';
-} else if(lang === 'JavaScript') {
-  ext = '.js';
-} else if(lang === 'BASH') {
-  ext = '.sh';
-} else if(lang === 'MySQL') {
-  ext = '.sql';
+// var scriptName = urlArray[2] + '_solution.sh';
+var filename = genFilename();
+var genSolution = function(filename) {
+  var solution = new SolutionData(scrapePath(), filename);
+  $(".CodeMirror-code div pre > span").each(function() {
+    solution.addCode(this.textContent);
+  });
+  return solution;
 }
-var filename = urlArray[2] + ext;
-var scriptName = urlArray[2] + '_solution.sh';
-var solution = new SolutionData(scrapePath(), filename);
-$(".CodeMirror-code div pre > span").each(function() {
-  solution.addCode(this.textContent);
-});
 
 var spot = $(".submissions-details .pull-left p");
 var spotText = spot.text();
 spot.html("<a>" + spotText + "</a>");
 tag = spot.find("a");
-tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(solution.genScript()));
-tag.attr("download", scriptName);
+tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(genSolution().genScript()));
+tag.attr("download", filename + '_solution.sh');
