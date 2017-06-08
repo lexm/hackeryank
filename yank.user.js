@@ -50,7 +50,7 @@
       return script;
     };
 
-    var Solution.prototype.genJSON = function() {
+    Solution.prototype.genJSON = function() {
       var result = {};
       result.progName = this.progName;
       result.breadcrumb = this.breadcrumb;
