@@ -68,7 +68,7 @@
       return pathArray;
     };
 
-    var genFilename = function(is_bash) {
+    var genFilename = function(is_json) {
       var urlArray = window.location.pathname.split('/');
       var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
       var ext = '';
@@ -81,8 +81,8 @@
       } else if(lang === 'MySQL') {
         ext = '.sql';
       }
-      if(is_bash) {
-        return urlArray[2] + '_solution.sh';
+      if(is_json) {
+        return urlArray[2] + '.json';
       } else {
         return urlArray[2] + ext;
       }
@@ -101,7 +101,7 @@
       var spotText = spot.text();
       spot.html("<a>" + spotText + "</a>");
       var tag = spot.find("a");
-      tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(genSolution().genScript()));
+      tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(genSolution().genJSON()));
       tag.attr("download", genFilename(true));
     };
 
