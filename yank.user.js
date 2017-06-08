@@ -50,6 +50,16 @@
       return script;
     };
 
+    var Solution.prototype.genJSON = function() {
+      var result = {};
+      result.progName = this.progName;
+      result.breadcrumb = this.breadcrumb;
+      result.message = this.message;
+      result.filename = this.filename;
+      result.outCode = this.outCode;
+      return JSON.stringify(result);
+    }
+
     var scrapePath = function() {
       var pathArray = [];
       $(".bcrumb span").each(function() {
