@@ -7,103 +7,72 @@
 // @author       Lex Myers
 // ==/UserScript==
 
-(function() {
+(function(module) {
     'use strict';
 
-    var Solution = function(pathArray, filename) {
-      pathArray.shift();
-      this.progName = pathArray.pop();
-      this.breadcrumb = pathArray.map(function(cur) {
-        return cur.split(' ').join('_');
-      }).join('/');
-      this.message = 'Solution to ' + pathArray.join(' > ') + ' > ' + this.progName;
-      this.filename = filename;
-      this.outCode = [];
-      this.addCode = function(text) {
-        this.outCode.push(text);
-      };
+    var SolutionData = function(pathArray, filename) {
+        pathArray.shift();
+        this.progName = pathArray.pop();
+        this.breadcrumb = pathArray.join('/');
+        this.filename = filename;
+        this.outCode = [];
+        this.addCode = function(text) {
+            this.outCode.push(text);
+        };
     };
 
-    Solution.prototype.genScript = function() {
-      var script = '#!/bin/bash\n';
-      script += 'HACKERRANK_REPO=~/Dev/hackerrank/hackerrank-code\n';
-      script += 'BCRUMB=' + this.breadcrumb + '\n';
-      script += 'CODE_FILENAME=' + this.filename + '\n';
-      script += 'if [ ! -d $HACKERRANK_REPO ]; then\n';
-      script += '  echo $HACKERRANK_REPO does not exist;\n';
-      script += 'elif [ ! -d $HACKERRANK_REPO/.git ]; then\n';
-      script += '  echo $HACKERRANK_REPO is not a git repo;\n';
-      script += 'else\n';
-      script += '  mkdir -p $HACKERRANK_REPO/$BCRUMB\n';
-      script += '  if [ -d $HACKERRANK_REPO/$BCRUMB/$CODE_FILENAME ]; then\n';
-      script += '    echo $CODE_FILENAME already exists;\n';
-      script += '  else\n';
-      script += '    touch $HACKERRANK_REPO/$BCRUMB/$CODE_FILENAME\n';
-      this.outCode.forEach(function(cur) {
-        script += '    echo "' + cur + '" >> $HACKERRANK_REPO/$BCRUMB/$CODE_FILENAME;\n';
-      });
-      script += ' fi\n';
-      script += 'fi\n';
-      script += 'cd $HACKERRANK_REPO/$BCRUMB/\n';
-      script += 'git add $CODE_FILENAME\n';
-      script += 'git commit -m "' + this.message + '"\n';
-      return script;
-    };
-
-    Solution.prototype.genJSON = function() {
-      var result = {};
-      result.progName = this.progName;
-      result.breadcrumb = this.breadcrumb;
-      result.message = this.message;
-      result.filename = this.filename;
-      result.outCode = this.outCode;
-      return JSON.stringify(result);
+    SolutionData.prototype.genScript = function() {
+        scr = '#!/bin/bash\n';
+        scr += 'HACKERRANK_REPO=~/Dev/hackerrank/hackerrank-code\n';
+        scr += 'BCRUMB=' + this.breadcrumb + '\n';
+        scr += 'CODE_FILENAME=' + this.filename + '\n';
+        scr += 'if [ ! -d $HACKERRANK_REPO ]; then\n';
+        scr += '  echo $HACKERRANK_REPO does not exist;\n';
+        scr += 'elif [ ! -d $HACKERRANK_REPO/.git ]; then\n';
+        scr += '  echo $HACKERRANK_REPO is not a git repo;\n';
+        scr += 'else\n';
+        scr += '  mkdir -p $HACKERRANK_REPO/$BCRUMB\n';
+        scr += '  if [ -d $HACKERRANK_REPO/$BCRUMB/$CODE_FILENAME ]; then\n';
+        scr += '    echo $CODE_FILENAME already exists;\n';
+        scr += '  else\n';
+        scr += '    touch $HACKERRANK_REPO/$BCRUMB/$CODE_FILENAME\n';
+        this.outCode.forEach(function(cur) {
+            scr += '    echo "' + cur + '" >> $HACKERRANK_REPO/$BCRUMB/$CODE_FILENAME;\n';
+        });
+        scr += ' fi\n';
+        scr += 'fi\n';
+        return scr;
     }
 
-    var scrapePath = function() {
-      var pathArray = [];
-      $(".bcrumb span").each(function() {
+    var pathArray = [];
+    $(".bcrumb span").each(function() {
         pathArray.push(this.textContent);
-      });
-      return pathArray;
-    };
-
-    var genFilename = function(is_json) {
-      var urlArray = window.location.pathname.split('/');
-      var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
-      var ext = '';
-      if(lang === 'Python' || lang === 'Pypy') {
+    });
+    var urlArray = window.location.pathname.split('/');
+    if(urlArray[3] === 'submissions') {
+        var lang = $(".pull-left .msT").text().replace(/^\s+|\s+$/g,'').split(' ')[1];
+        var spot = $(".submissions-details .pull-left p");
+    } else {
+        var lang = $(".select2-container span").text().split(' ')[0];
+        var spot = $(".grey-header div:nth-child(5)");
+    }
+    var ext = '';
+    if(lang === 'Python' || lang === 'Pypy') {
         ext = '.py';
-      } else if(lang === 'JavaScript') {
+    } else if(lang === 'JavaScript') {
         ext = '.js';
-      } else if(lang === 'BASH') {
-        ext = '.sh';
-      } else if(lang === 'MySQL') {
-        ext = '.sql';
-      }
-      if(is_json) {
-        return urlArray[2] + '.json';
-      } else {
-        return urlArray[2] + ext;
-      }
-    };
-
-    var genSolution = function(filename) {
-      var solution = new Solution(scrapePath(), genFilename());
-      $(".CodeMirror-code div pre > span").each(function() {
+    }
+    var filename = urlArray[2] + ext;
+    var scriptName = urlArray[2] + '_solution.sh';
+    var solution = new SolutionData(pathArray, filename);
+    $(".CodeMirror-code div pre > span").each(function() {
         solution.addCode(this.textContent);
-      });
-      return solution;
-    };
+    });
 
-    var addLinkToPage = function() {
-      var spot = $(".submissions-details .pull-left p");
-      var spotText = spot.text();
-      spot.html("<a>" + spotText + "</a>");
-      var tag = spot.find("a");
-      tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(genSolution().genJSON()));
-      tag.attr("download", genFilename(true));
-    };
+    var spotText = spot.text();
+    spot.html("<a>" + spotText + "</a>");
+    var tag = spot.find("a");
+    tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(solution.genScript()));
+    tag.attr("download", scriptName);
 
-    addLinkToPage();
-})();
+})(window);
