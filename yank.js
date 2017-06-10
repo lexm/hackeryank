@@ -23,9 +23,9 @@
         this.outCode.push(text);
       };
       this.allCode = function() {
-        result = '';
+        let result = '';
         this.outCode.forEach(function(cur) {
-          result += cur;
+          result += cur + '\n';
         });
         return result;
       }
@@ -63,7 +63,7 @@
       result.breadcrumb = this.breadcrumb;
       result.message = this.message;
       result.filename = this.filename;
-      result.allCode = this.allCode;
+      result.allCode = this.allCode();
       return JSON.stringify(result);
     }
 
