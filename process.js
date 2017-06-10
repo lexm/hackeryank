@@ -8,8 +8,7 @@ fs.readFile(home + filePath, 'utf8', function(err, data) {
   if(err) throw err;
   scriptData = JSON.parse(data);
   var { breadcrumb, message, filename, allCode} = scriptData;
-  console.log(repo + breadcrumb + '/' + filename);
-  console.log(allCode);
+  console.log(message);
   fs.stat(repo, function(err, stats) {
     if(err) throw err;
     fs.writeFile(repo + breadcrumb + '/' + filename, allCode, function(err){
