@@ -22,14 +22,9 @@
       this.addCode = function(text) {
         this.outCode.push(text);
       };
-      // this.allCode = function() {
-      //   let result = '';
-      //   this.outCode.forEach(function(cur) {
-      //     result += cur + '\n';
-      //   });
-      //   return result;
-      // }
-      this.allCode = this.outCode.join('\n');
+      this.allCode = function() {
+        return this.outCode.join('\n');
+      }
     };
 
     Solution.prototype.genJSON = function() {
@@ -38,7 +33,7 @@
       result.breadcrumb = this.breadcrumb;
       result.message = this.message;
       result.filename = this.filename;
-      result.allCode = this.allCode;
+      result.allCode = this.allCode();
       return JSON.stringify(result);
     }
 
