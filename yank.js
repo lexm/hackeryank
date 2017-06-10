@@ -23,11 +23,7 @@
         this.outCode.push(text);
       };
       this.allCode = function() {
-        let result = '';
-        this.outCode.forEach(function(cur) {
-          result += cur + '\n';
-        });
-        return result;
+        return this.outCode.join('\n');
       }
     };
 
