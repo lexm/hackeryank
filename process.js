@@ -1,8 +1,8 @@
 const fs = require('fs');
 const home = process.env.HOME;
 repo = process.env.HACKERRANK_REPO || home + '/hackerrank-code/';
-const filePath = '/Downloads/hr_download.json';
-console.log(repo);
+const filePath = process.argv[1];
+console.log(filePath);
 var scriptData;
 fs.readFile(home + filePath, 'utf8', function(err, data) {
   if(err) throw err;
