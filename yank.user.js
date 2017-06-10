@@ -22,6 +22,13 @@
       this.addCode = function(text) {
         this.outCode.push(text);
       };
+      this.allCode = function() {
+        result = '';
+        this.outCode.forEach(function(cur) {
+          result += cur;
+        });
+        return result;
+      }
     };
 
     Solution.prototype.genScript = function() {
@@ -56,7 +63,7 @@
       result.breadcrumb = this.breadcrumb;
       result.message = this.message;
       result.filename = this.filename;
-      result.outCode = this.outCode;
+      result.allCode = this.allCode;
       return JSON.stringify(result);
     }
 
@@ -102,7 +109,7 @@
       spot.html("<a>" + spotText + "</a>");
       var tag = spot.find("a");
       tag.attr("href", "data:text/plain;charset=UTF-8," + encodeURIComponent(genSolution().genJSON()));
-      tag.attr("download", genFilename(true));
+      tag.attr("download", "hr_download.json");
     };
 
     addLinkToPage();
