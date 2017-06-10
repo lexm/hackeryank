@@ -1,10 +1,10 @@
 const fs = require('fs');
 const home = process.env.HOME;
 repo = process.env.HACKERRANK_REPO || home + '/hackerrank-code/';
-const filePath = process.argv[1];
+const filePath = process.argv[2] || home + '/Downloads/hr_download.json';
 console.log(filePath);
 var scriptData;
-fs.readFile(home + filePath, 'utf8', function(err, data) {
+fs.readFile(filePath, 'utf8', function(err, data) {
   if(err) throw err;
   scriptData = JSON.parse(data);
   var { breadcrumb, message, filename, allCode} = scriptData;
