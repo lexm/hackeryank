@@ -31,32 +31,6 @@
       }
     };
 
-    Solution.prototype.genScript = function() {
-      var script = '#!/bin/bash\n';
-      script += 'HACKERRANK_REPO=~/Dev/hackerrank/hackerrank-code\n';
-      script += 'BCRUMB=' + this.breadcrumb + '\n';
-      script += 'CODE_FILENAME=' + this.filename + '\n';
-      script += 'if [ ! -d $HACKERRANK_REPO ]; then\n';
-      script += '  echo $HACKERRANK_REPO does not exist;\n';
-      script += 'elif [ ! -d $HACKERRANK_REPO/.git ]; then\n';
-      script += '  echo $HACKERRANK_REPO is not a git repo;\n';
-      script += 'else\n';
-      script += '  mkdir -p $HACKERRANK_REPO/$BCRUMB\n';
-      script += '  if [ -d $HACKERRANK_REPO/$BCRUMB/$CODE_FILENAME ]; then\n';
-      script += '    echo $CODE_FILENAME already exists;\n';
-      script += '  else\n';
-      script += '    touch $HACKERRANK_REPO/$BCRUMB/$CODE_FILENAME\n';
-      this.outCode.forEach(function(cur) {
-        script += '    echo "' + cur + '" >> $HACKERRANK_REPO/$BCRUMB/$CODE_FILENAME;\n';
-      });
-      script += ' fi\n';
-      script += 'fi\n';
-      script += 'cd $HACKERRANK_REPO/$BCRUMB/\n';
-      script += 'git add $CODE_FILENAME\n';
-      script += 'git commit -m "' + this.message + '"\n';
-      return script;
-    };
-
     Solution.prototype.genJSON = function() {
       var result = {};
       result.progName = this.progName;
