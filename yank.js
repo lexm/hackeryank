@@ -18,12 +18,12 @@
       }).join('/');
       this.message = 'Solution to ' + pathArray.join(' > ') + ' > ' + this.progName;
       this.filename = filename;
-      this.outCode = [];
+      var outCode = [];
       this.addCode = function(text) {
-        this.outCode.push(text);
+        outCode.push(text);
       };
       this.allCode = function() {
-        return this.outCode.join('\n');
+        return outCode.join('\n').replace(/[\u200B-\u200D\uFEFF]/g, '');
       }
     };
 
