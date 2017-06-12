@@ -19,7 +19,11 @@ fs.readFile(filePath, 'utf8', function(err, data) {
         console.log('stdout: ', stdout);
         console.log('stderr: ', stderr);
         if(error) console.error(error);
-        console.log('git commit -m "' + message + '"');
+        var child2 = exec('cd ' + repo + breadcrumb + '/;git commit -m "' + message + '"', function(error, stdout, stderr) {
+          console.log('stdout: ', stdout);
+          console.log('stderr: ', stderr);
+          if(error) console.error(error);
+        })
       })
     });
   });
