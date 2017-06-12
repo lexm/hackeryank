@@ -1,5 +1,4 @@
 const fs = require('fs');
-const sys = require('sys');
 const exec = require('child_process').exec;
 const home = process.env.HOME;
 repo = process.env.HACKERRANK_REPO || home + '/hackerrank-code/';
@@ -16,8 +15,13 @@ fs.readFile(filePath, 'utf8', function(err, data) {
     fs.writeFile(repo + breadcrumb + '/' + filename, allCode, function(err){
       if(err) throw err;
       console.log('File ' + filename + ' written');
+      var child1 = exec('git add ' + repo + filename, function(error, stdout, stderr) {
+        console.log('stdout: ', stdout);
+        console.log('stderr: ', stderr);
+        if(error) console.error(error);
+        console.log('git commit -m "' + message + '"');
+      })
       console.log('git add ' + repo + filename);
-      console.log('git commit -m "' + message + '"');
     });
   });
 });
