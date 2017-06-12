@@ -15,13 +15,12 @@ fs.readFile(filePath, 'utf8', function(err, data) {
     fs.writeFile(repo + breadcrumb + '/' + filename, allCode, function(err){
       if(err) throw err;
       console.log('File ' + filename + ' written');
-      console.log('cd ' + repo + breadcrumb + '/;git add ' + filename);
-      // var child1 = exec('cd ' + repo + breadcrumb + '/;git add ' + filename, function(error, stdout, stderr) {
-      //   console.log('stdout: ', stdout);
-      //   console.log('stderr: ', stderr);
-      //   if(error) console.error(error);
-      //   console.log('git commit -m "' + message + '"');
-      // })
+      var child1 = exec('cd ' + repo + breadcrumb + '/;git add ' + filename, function(error, stdout, stderr) {
+        console.log('stdout: ', stdout);
+        console.log('stderr: ', stderr);
+        if(error) console.error(error);
+        console.log('git commit -m "' + message + '"');
+      })
     });
   });
 });
