@@ -5,7 +5,6 @@
 // @description  Saves one's HackerRank solutions for adding to a repo
 // @include      https://www.hackerrank.com/challenges/*
 // @author       Lex Myers
-// @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js
 // ==/UserScript==
 
 
