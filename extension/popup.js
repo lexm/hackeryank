@@ -125,7 +125,20 @@ function renderStatus(statusText) {
 
 document.addEventListener('DOMContentLoaded', function() {
   getCurrentTab(function(tab) {
-    chrome.tabs.executeScript(null, {file: 'yank_script.js'});
+    chrome.tabs.executeScript({file: 'vendor/jquery-1.9.0.min.js'}, function() {
+      chrome.tabs.executeScript(null, {
+        code:
+        'var scrapePath = function() {
+          var pathArray = [];
+          $(".bcrumb span").each(function() {
+            pathArray.push(this.textContent);
+          });
+          return pathArray;
+        };
+
+        console.log(scrapePath());'
+      });
+    })
   })
 
 });
