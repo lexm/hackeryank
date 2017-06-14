@@ -1,7 +1,7 @@
 const fs = require('fs');
-const exec = require('child_process').exec;
+// const exec = require('child_process').exec;
 const home = process.env.HOME;
-repo = process.env.HACKERRANK_REPO || home + '/hackerrank-code/';
+const repo = process.env.HACKERRANK_REPO || home + '/hackerrank-code/';
 const filePath = process.argv[2] || home + '/Downloads/hr_download.json';
 console.log(filePath);
 var scriptData;
@@ -13,7 +13,7 @@ fs.readFile(filePath, 'utf8', function(err, data) {
   fs.stat(repo, function(err, stats) {
     if(err) throw err;
     fs.stat(repo + breadcrumb, function(err2, stats2) {
-      if(err2.code === 'ENOENT') {
+      if(err2 && err2.code === 'ENOENT') {
         console.log('repo ' + repo + ' not found');
       }
       console.log(repo + breadcrumb);
