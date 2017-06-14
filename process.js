@@ -13,10 +13,10 @@ fs.readFile(filePath, 'utf8', function(err, data) {
   fs.stat(repo, function(err, stats) {
     if(err) throw err;
     fs.stat(repo + breadcrumb, function(err2, stats2) {
+      console.error(err2);
       console.log(repo + breadcrumb);
       console.log(stats2);
-      if(err2) throw err2;
-    })
+    });
     // fs.writeFile(repo + breadcrumb + '/' + filename, allCode, function(err){
     //   if(err) throw err;
     //   console.log('File ' + filename + ' written');
