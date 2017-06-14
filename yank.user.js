@@ -16,9 +16,10 @@
           var Solution = function(pathArray, filename) {
             pathArray.shift();
             this.progName = pathArray.pop();
-            this.breadcrumb = pathArray.map(function(cur) {
+            this.pathArray = pathArray.map(function(cur) {
               return cur.split(' ').join('_');
-            }).join('/');
+            })
+            this.breadcrumb = this.pathArray.join('/');
             this.message = 'Solution to ' + pathArray.join(' > ') + ' > ' + this.progName;
             this.filename = filename;
             var outCode = [];
@@ -33,6 +34,7 @@
           Solution.prototype.genJSON = function() {
             var result = {};
             result.progName = this.progName;
+            result.pathArray = this.pathArray;
             result.breadcrumb = this.breadcrumb;
             result.message = this.message;
             result.filename = this.filename;
