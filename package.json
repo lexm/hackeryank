@@ -1,0 +1,20 @@
+{
+	"name": "hackeryank",
+	"version": "0.1.4",
+	"description": "Saves one's HackerRank solutions for adding to a repo",
+	"homepage": "https://github.com/lexm/hackeryank#readme",
+	"bugs": {
+		"url": "https://github.com/lexm/hackeryank/issues"
+	},
+	"license": "ISC",
+	"author": "Lex Myers",
+	"main": "process.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/lexm/hackeryank.git"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {}
+}
