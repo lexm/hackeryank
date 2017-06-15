@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         HackerYank
-// @version      0.1
+// @version      0.1.4
 // @namespace    http://www.lexmyers.com/
 // @description  Saves one's HackerRank solutions for adding to a repo
 // @include      https://www.hackerrank.com/challenges/*
