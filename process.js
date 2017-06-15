@@ -20,14 +20,14 @@ const makeCodeDir = function(repo, pathArray) {
 };
 
 let scriptData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-let { pathArray, breadcrumb, message, filename, allCode} = scriptData;
+let { pathArray, message, filename, allCode} = scriptData;
 let fullPath = makeCodeDir(repo, pathArray);
 fs.writeFile(fullPath + filename, allCode, function(err){
   if(err) throw err;
   console.log('File ' + filename + ' written');
-  exec('cd ' + repo + breadcrumb + '/;git add ' + filename, function(error) {
+  exec('cd ' + fullPath + ';git add ' + filename, function(error) {
     if(error) console.error(error);
-    exec('cd ' + repo + breadcrumb + '/;git commit -m "' + message + '"', function(error) {
+    exec('cd ' + fullPath + ';git commit -m "' + message + '"', function(error) {
       if(error) console.error(error);
     });
   });
