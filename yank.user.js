@@ -18,8 +18,7 @@
             this.progName = pathArray.pop();
             this.pathArray = pathArray.map(function(cur) {
               return cur.split(' ').join('_');
-            })
-            this.breadcrumb = this.pathArray.join('/');
+            });
             this.message = 'Solution to ' + pathArray.join(' > ') + ' > ' + this.progName;
             this.filename = filename;
             var outCode = [];
@@ -28,19 +27,18 @@
             };
             this.allCode = function() {
               return outCode.join('\n').replace(/[\u200B-\u200D\uFEFF]/g, '');
-            }
+            };
           };
 
           Solution.prototype.genJSON = function() {
             var result = {};
             result.progName = this.progName;
             result.pathArray = this.pathArray;
-            result.breadcrumb = this.breadcrumb;
             result.message = this.message;
             result.filename = this.filename;
             result.allCode = this.allCode();
             return JSON.stringify(result);
-          }
+          };
 
           var scrapePath = function() {
             var pathArray = [];
