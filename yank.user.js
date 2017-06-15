@@ -41,9 +41,11 @@
 
       var scrapePath = function() {
         var pathArray = [];
-        $('.bcrumb span').each(function() {
-          pathArray.push(this.textContent);
-        });
+        var bcrumb = document.getElementsByClassName('bcrumb');
+        var bcSpan = bcrumb[0].getElementsByTagName('span');
+        for(var nodeNum = 0; nodeNum < bcSpan.length; nodeNum++) {
+          pathArray.push(bcSpan[nodeNum].textContent);
+        }
         return pathArray;
       };
 
