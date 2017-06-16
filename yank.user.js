@@ -86,12 +86,14 @@
       };
 
       var addLinkToPage = function() {
-        var spot = $('.submissions-details .pull-left p');
-        var spotText = spot.text();
-        spot.html('<a>' + spotText + '</a>');
-        var tag = spot.find('a');
-        tag.attr('href', 'data:text/plain;charset=UTF-8,' + encodeURIComponent(genSolution().genJSON()));
-        tag.attr('download', 'hr_download.json');
+        var subDetails = document.getElementsByClassName('submissions-details');
+        var sdPullLeft = subDetails[0].getElementsByClassName('pull-left');
+        // var spot = $('.submissions-details .pull-left p');
+        // var spotText = spot.text();
+        // spot.html('<a>' + spotText + '</a>');
+        // var tag = spot.find('a');
+        // tag.attr('href', 'data:text/plain;charset=UTF-8,' + encodeURIComponent(genSolution().genJSON()));
+        // tag.attr('download', 'hr_download.json');
       };
 
       addLinkToPage();
