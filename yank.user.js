@@ -51,7 +51,14 @@
 
       var genFilename = function(is_json) {
         var urlArray = window.location.pathname.split('/');
-        var lang = $('.pull-left .msT').text().replace(/^\s+|\s+$/g,'').split(' ')[1];
+        var pullLeft = document.getElementsByClassName('pull-left');
+        var langEle = [];
+        var nodeNum = 0;
+        while(!langEle.length && nodeNum < pullLeft.length) {
+          langEle = pullLeft[nodeNum].getElementsByClassName('msT');
+          nodeNum++;
+        }
+        var lang = langEle[0].textContent.replace(/^\s+|\s+$/g,'').split(' ')[1];
         var ext = '';
         if(lang === 'Python' || lang === 'Pypy') {
           ext = '.py';
