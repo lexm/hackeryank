@@ -91,12 +91,9 @@
         var spot = sdPullLeft[0].firstElementChild;
         var spotText = spot.textContent;
         spot.innerHTML = '<a>' + spotText + '</a>';
-        // var spot = $('.submissions-details .pull-left p');
-        // var spotText = spot.text();
-        // spot.html('<a>' + spotText + '</a>');
-        // var tag = spot.find('a');
-        // tag.attr('href', 'data:text/plain;charset=UTF-8,' + encodeURIComponent(genSolution().genJSON()));
-        // tag.attr('download', 'hr_download.json');
+        var tag = spot.firstElementChild;
+        tag.setAttribute('href', 'data:text/plain;charset=UTF-8,' + encodeURIComponent(genSolution().genJSON()));
+        tag.setAttribute('download', 'hr_download.json');
       };
 
       addLinkToPage();
