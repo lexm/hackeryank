@@ -88,6 +88,9 @@
       var addLinkToPage = function() {
         var subDetails = document.getElementsByClassName('submissions-details');
         var sdPullLeft = subDetails[0].getElementsByClassName('pull-left');
+        var spot = sdPullLeft[0].firstElementChild;
+        var spotText = spot.textContent;
+        spot.innerHTML = '<a>' + spotText + '</a>';
         // var spot = $('.submissions-details .pull-left p');
         // var spotText = spot.text();
         // spot.html('<a>' + spotText + '</a>');
