@@ -78,9 +78,10 @@
 
       var genSolution = function() {
         var solution = new Solution(scrapePath(), genFilename());
-        $('.CodeMirror-code div pre > span').each(function() {
-          solution.addCode(this.textContent);
-        });
+        var lineEle = document.getElementsByClassName('CodeMirror-line');
+        for(var lineNum = 0; lineNum < lineEle.length; lineNum++) {
+          solution.addCode(lineEle[lineNum].textContent);
+        }
         return solution;
       };
 
