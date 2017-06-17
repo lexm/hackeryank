@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Getting started example",
-  "description": "This extension shows a Google Image search result for the current page",
-  "version": "1.0",
+  "name": "HackerYank",
+  "description": "Saves one's HackerRank solutions for adding to a repo",
+  "version": "1.5",
 
   "browser_action": {
     "default_icon": "icon.png",
@@ -11,7 +11,6 @@
   },
   "permissions": [
     "activeTab",
-    "https://www.hackerrank.com/",
-    "https://ajax.googleapis.com/"
+    "https://www.hackerrank.com/"
   ]
 }
