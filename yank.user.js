@@ -8,9 +8,16 @@
 // ==/UserScript==
 
 (function() {
+  var target = document.getElementById('submissionsTab');
+  var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      console.log(mutation.type);
+    });
+  });
+  var config = { attributes: true, childList: true, characterData: true };
+  observer.observe(target, config);
   setTimeout(function() {
     'use strict';
-
     var Solution = function(pathArray, filename) {
       pathArray.shift();
       this.progName = pathArray.pop();
