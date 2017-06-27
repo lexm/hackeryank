@@ -61,7 +61,7 @@
       var langEle = [];
       var nodeNum = 0;
       while(!langEle.length && nodeNum < pullLeft.length) {
-        langEle = pullLeft[nodeNum].getElementsByClassName('msT');
+        langEle = pullLeft[nodeNum].getElementsByClassName('msB');
         nodeNum++;
       }
       var lang = langEle[0].textContent.replace(/^\s+|\s+$/g,'').split(' ')[1];
