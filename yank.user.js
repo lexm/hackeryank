@@ -6,9 +6,9 @@
 // @include      https://www.hackerrank.com/challenges/*
 // @author       Lex Myers
 // ==/UserScript==
-'use strict';
 
 (function() {
+  'use strict';
 
   var Solution = function(pathArray, filename) {
     pathArray.shift();
