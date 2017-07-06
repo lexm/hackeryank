@@ -99,9 +99,9 @@
     var ele = e.target;
     if(ele.tagName == 'A' && ele.classList.contains('view-results')) {
       console.log('WHAM!');
-      addLinkToPage();
-      // setTimeout(function() {
-      // }, 3000);
+      setTimeout(function() {
+        addLinkToPage();
+      }, 500);
     }
   };
 
