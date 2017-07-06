@@ -1,4 +1,3 @@
-'use strict';
 // ==UserScript==
 // @name         HackerYank
 // @version      0.3.1
@@ -7,6 +6,7 @@
 // @include      https://www.hackerrank.com/challenges/*
 // @author       Lex Myers
 // ==/UserScript==
+'use strict';
 
 (function() {
 
@@ -103,6 +103,5 @@
   }
   // addLinkToPage();
 // };
-
 
 })();
