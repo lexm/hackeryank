@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         HackerYank
-// @version      0.3.1
+// @version      0.3.2
 // @namespace    http://www.lexmyers.com/
 // @description  Saves one's HackerRank solutions for adding to a repo
 // @include      https://www.hackerrank.com/challenges/*
@@ -8,9 +8,9 @@
 // ==/UserScript==
 'use strict';
 
-(function() {
+(function(module) {
 
-//  setTimeout(
+//  setTimeout(function() {
 // const yank = function() {
 
   var Solution = function(pathArray, filename) {
@@ -87,6 +87,7 @@
   };
 
   var addLinkToPage = function() {
+    console.log('POW!');
     var subDetails = document.getElementsByClassName('submissions-details');
     var sdPullLeft = subDetails[0].getElementsByClassName('pull-left');
     var spot = sdPullLeft[0].firstElementChild;
@@ -97,11 +98,24 @@
     tag.setAttribute('download', 'hr_download.json');
   };
 
-  var viewRes = document.getElementsByClassName('view-results');
-  for(let i = 0; i < viewRes.length; i++) {
-    viewRes.item(i).addEventListener('click', addLinkToPage);
-  }
-  // addLinkToPage();
-// };
+    var waitToListen = function(e) {
+        console.log('WHAM!');
+        var ele = e.target;
+        if(ele.tagName == 'A' && ele.classList.contains('view-results')) {
+           setTimeout(function() {
+            addLinkToPage();
+           }, 3000);
+        }
+    };
 
-})();
+
+
+//  var viewRes = document.getElementsByClassName('view-results');
+//  for(let i = 0; i < viewRes.length; i++) {
+//    console.log(i, 'BAM!');
+//    viewRes.item(i).addEventListener('click', waitToListen);
+//  }
+//    waitToListen();
+ document.addEventListener('click', waitToListen);
+
+})(window);
