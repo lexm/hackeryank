@@ -96,9 +96,9 @@
   };
 
   var waitToListen = function(e) {
-    console.log('WHAM!');
     var ele = e.target;
     if(ele.tagName == 'A' && ele.classList.contains('view-results')) {
+      console.log('WHAM!');
       setTimeout(function() {
         addLinkToPage();
       }, 3000);
