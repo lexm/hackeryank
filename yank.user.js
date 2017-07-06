@@ -8,10 +8,7 @@
 // ==/UserScript==
 'use strict';
 
-(function(module) {
-
-//  setTimeout(function() {
-// const yank = function() {
+(function() {
 
   var Solution = function(pathArray, filename) {
     pathArray.shift();
@@ -98,24 +95,16 @@
     tag.setAttribute('download', 'hr_download.json');
   };
 
-    var waitToListen = function(e) {
-        console.log('WHAM!');
-        var ele = e.target;
-        if(ele.tagName == 'A' && ele.classList.contains('view-results')) {
-           setTimeout(function() {
-            addLinkToPage();
-           }, 3000);
-        }
-    };
+  var waitToListen = function(e) {
+    console.log('WHAM!');
+    var ele = e.target;
+    if(ele.tagName == 'A' && ele.classList.contains('view-results')) {
+      setTimeout(function() {
+        addLinkToPage();
+      }, 3000);
+    }
+  };
 
-
-
-//  var viewRes = document.getElementsByClassName('view-results');
-//  for(let i = 0; i < viewRes.length; i++) {
-//    console.log(i, 'BAM!');
-//    viewRes.item(i).addEventListener('click', waitToListen);
-//  }
-//    waitToListen();
  document.addEventListener('click', waitToListen);
 
-})(window);
+})();
