@@ -105,7 +105,11 @@
     tag.setAttribute('download', 'hr_download.json');
   };
 
-  addLinkToPage();
+  var viewRes = document.getElementsByClassName('view-results');
+  for(let i = 0; i < viewRes.length; i++) {
+    viewRes.item(i).addEventListener('click', addLinkToPage);
+  }
+  // addLinkToPage();
 // };
 
 
