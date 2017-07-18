@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         HackerYank
-// @version      0.3.2
+// @version      0.3.3
 // @namespace    http://www.lexmyers.com/
 // @description  Saves one's HackerRank solutions for adding to a repo
 // @include      https://www.hackerrank.com/challenges/*
@@ -16,7 +16,7 @@
     this.pathArray = pathArray.map(function(cur) {
       return cur.split(' ').join('_');
     });
-    this.message = 'Solution to ' + pathArray.join(' > ') + ' > ' + this.progName;
+    this.message = pathArray.join(' > ') + ' > ' + this.progName;
     this.filename = filename;
     var outCode = [];
     this.addCode = function(text) {
