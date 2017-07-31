@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         HackerYank
-// @version      0.3.3
+// @version      0.3.4
 // @namespace    http://www.lexmyers.com/
 // @description  Saves one's HackerRank solutions for adding to a repo
 // @include      https://www.hackerrank.com/challenges/*
@@ -62,6 +62,8 @@
       ext = '.py';
     } else if(lang === 'JavaScript') {
       ext = '.js';
+    } else if(lang === 'Java') {
+      ext = '.java';
     } else if(lang === 'BASH') {
       ext = '.sh';
     } else if(lang === 'MySQL') {
